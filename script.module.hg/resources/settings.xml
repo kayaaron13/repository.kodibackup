@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label='General'>
+		<setting label='DeBug Mode' type='lsep'/>
+		<setting id='debug' type='bool' label='Enable' default='false'/>
+		<setting type='sep'/>
+	</category>
+</settings>
