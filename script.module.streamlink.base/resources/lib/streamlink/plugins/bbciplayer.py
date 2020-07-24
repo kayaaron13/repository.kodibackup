@@ -32,7 +32,7 @@ class BBCiPlayer(Plugin):
     mediator_re = re.compile(
         r'window\.mediatorDefer\s*=\s*page\([^,]*,\s*({.*?})\);', re.DOTALL)
     tvip_re = re.compile(r'channel"\s*:\s*{\s*"id"\s*:\s*"(\w+?)"')
-    tvip_master_re = re.compile(r'event_master_brand=(\w+?)&')
+    tvip_main_re = re.compile(r'event_main_brand=(\w+?)&')
     account_locals_re = re.compile(r'window.bbcAccount.locals\s*=\s*({.*?});')
     swf_url = "http://emp.bbci.co.uk/emp/SMPf/1.18.3/StandardMediaPlayerChromelessFlash.swf"
     hash = base64.b64decode(
@@ -138,11 +138,11 @@ class BBCiPlayer(Plugin):
         vpid = m and parse_json(m.group(1), schema=self.mediator_schema)
         return vpid
 
-    def find_tvip(self, url, master=False):
-        log.debug("Looking for {0} tvip on {1}", "master" if master else "", url)
+    def find_tvip(self, url, main=False):
+        log.debug("Looking for {0} tvip on {1}", "main" if main else "", url)
         res = self.session.http.get(url)
-        if master:
-            m = self.tvip_master_re.search(res.text)
+        if main:
+            m = self.tvip_main_re.search(res.text)
         else:
             m = self.tvip_re.search(res.text)
         return m and m.group(1)
@@ -241,7 +241,7 @@ class BBCiPlayer(Plugin):
         elif channel_name:
             log.debug("Loading stream for live channel: {0}", channel_name)
             if self.get_option("hd"):
-                tvip = self.find_tvip(self.url, master=True) + "_hd"
+                tvip = self.find_tvip(self.url, main=True) + "_hd"
                 if tvip:
                     log.debug("Trying HD stream {0}...", tvip)
                     try:
