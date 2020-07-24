@@ -189,7 +189,7 @@ class HLSStreamWorker(SegmentedStreamWorker):
         except ValueError as err:
             raise StreamError(err)
 
-        if playlist.is_master:
+        if playlist.is_main:
             raise StreamError("Attempted to play a variant playlist, use "
                               "'hls://{0}' instead".format(self.stream.url))
 

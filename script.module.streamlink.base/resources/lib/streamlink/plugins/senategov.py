@@ -49,7 +49,7 @@ class SenateGov(Plugin):
         "vetaff": ["76462", "https://vetaff-f.akamaihd.net"],
     }
 
-    hls_url = "{base}/i/{filename}_1@{number}/master.m3u8?"
+    hls_url = "{base}/i/{filename}_1@{number}/main.m3u8?"
     hlsarch_url = "https://ussenate-f.akamaihd.net/i/{filename}.mp4/master.m3u8"
 
     @classmethod
